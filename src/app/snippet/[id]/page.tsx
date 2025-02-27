@@ -14,7 +14,7 @@ const SnippetDetailPage: React.FC<SnipppetDetailsProps> = async ({
 }) => {
   const id = parseInt((await params).id);
 
-  await new Promise((r) => setTimeout(r, 2000));
+
 
   const snippet = await prisma.snippet.findUnique({
     where: {
@@ -27,24 +27,22 @@ const SnippetDetailPage: React.FC<SnipppetDetailsProps> = async ({
   const deleteSnippetActions = actions.deleteSnippet.bind(null, snippet.id);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex items-center justify-between">
-        <h1 className="font-bold text-xl">{snippet.title}</h1>
-        <div className="flex items-center gap-2">
-          <Link href={`/snippet/${snippet.id}/edit`}>
-            <Button>Edit</Button>
-          </Link>
-          <form action={deleteSnippetActions}>
-            <Button variant={"destructive"} type="submit">
-              Delete
-            </Button>
+  <>
+   <div className='w-full'>
+    <div className="flex w-[60%] mt-14  items-center justify-between mx-auto">
+         <h1 className="font-semibold text-xl"> {snippet.title} </h1>
+         <div className='flex gap-5'>
+          <Link href={`/snippet/${snippet.id}/edit`}> <Button >EDIT</Button>  </Link>
+          <form action={deleteSnippetActions} >   
+                   <Button type='submit' variant={'destructive'}>Delete</Button>  
           </form>
+          </div>
         </div>
-      </div>
-      <pre className="p-3 bg-gray-200 rounded border-gray-200">
+        <pre className="bg-gray-100 my-14  w-[60%]   items-center  mx-auto p-5">
         <code>{snippet.code}</code>
-      </pre>
-    </div>
+        </pre>
+        </div>   
+       </>
   );
 };
 
